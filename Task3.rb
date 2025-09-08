@@ -43,7 +43,7 @@ class Library
  
   
   result = @books.values.find { |book| book[parametr] == value }
-  result || "No results found"
+  result || "Book is not found"
   
   end
   end
@@ -51,7 +51,7 @@ class Library
   def change_status(parametr, value)
     result = @books.values.find { |book| book[parametr] == value }
     
-    return "No results found" unless result
+    return "Book is not found" unless result
     
     if result.has_key?(:status)
       current_status = result[:status]
@@ -65,11 +65,5 @@ class Library
   
 end
 
-l = Library.new
-l.add_book( author: "Стівен Кінг",  name: "Долорес Клейборн")
-p l.find_a_book(:name, "1984")
 
-p l.change_status(:name,  1111)
-
-p l.books
 
