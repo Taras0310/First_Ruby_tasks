@@ -1,0 +1,7 @@
+Ruby is a high-level, interpreted, object-oriented programming language known for its simple and readable syntax that makes it enjoyable for developers.
+
+ Invented by Yukihiro Matsumoto (also known as Matz) in the mid-1990s, 
+ 
+ it emphasizes developer productivity and happiness. Ruby is widely used for web development, 
+ 
+ often with the Ruby on Rails framework, as well as for automation, DevOps, data processing, and creating command-line tools. YY

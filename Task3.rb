@@ -54,13 +54,3 @@ class Library
     current_status == 'Active' ? result[:status] = 'Not active' : result[:status] = 'Active'
   end
 end
-
-l = Library.new
-
-p l.books
-
-l.add_book(name: 'Долорес Клейборн', author: 'Стівен Кінг', strong: 'Владисдав Батькович', status: 'Active')
-
-p l.books
-
-p l.find_book(:name, '1984')

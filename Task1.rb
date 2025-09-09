@@ -9,7 +9,6 @@ $global = 'Human' #global variable
 
 
 class Person
-  
   attr_accessor :name, :age, :surname, :patronymic
   @@count_instances = 0 #class variable
   
@@ -38,7 +37,4 @@ class Person
 end
 
 i = Person.new('Tарас', 25, 'Якушевич', 'Олексійович')
-
-
-
 i.general_info
