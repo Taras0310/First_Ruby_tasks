@@ -9,61 +9,58 @@ Class should be able to:
 =end
 
 class Library
-  
   attr_reader :books
-  
+
   def initialize
-  @books = {
-  1 => { id: 1, author: "Стівен Кінг", name: "Воно", status: "Active", year: 2020 },
-  2 => { id: 2, author: "Джордж Орвел", name: "1984" }
-  }
-  
+    @books = {
+      1 => { id: 1, author: 'Стівен Кінг', name: 'Воно', status: 'Active', year: 2020 },
+      2 => { id: 2, author: 'Джордж Орвел', name: '1984' }
+    }
   end
 
   def add_book(**args)
-  
-  allowed_keys = [:status, :year, :author, :name]
-  
-  if args.has_key?(:name) && args.has_key?(:author)
-    m = @books.keys.max.to_i + 1
-    @books[m] = { id: m } #auto increment id for a new book
+    allowed_keys = %i[status year author name]
 
-    args.each do |key, value|
-      if allowed_keys.include?(key)
-        
-         @books[m].merge!({ key => value })  
+    if args.has_key?(:name) && args.has_key?(:author)
+      m = @books.keys.max.to_i + 1
+      @books[m] = { id: m } # auto increment id for a new book
+
+      args.each do |key, value|
+        if allowed_keys.include?(key)
+          @books[m].merge!({ key => value })
+        end
       end
+    else
+      raise ArgumentError, 'Missing required keys: name and author'
     end
+  end
 
-  else
-    raise ArgumentError, "Missing required keys: name and author"
-  end
-  
-  def find_a_book(parametr, value)
- 
-  
-  result = @books.values.find { |book| book[parametr] == value }
-  result || "Book is not found"
-  
-  end
+  def find_book(parametr, value)
+    result = @books.values.find { |book| book[parametr] == value }
+    result || 'Book is not found'
   end
 
   def change_status(parametr, value)
     result = @books.values.find { |book| book[parametr] == value }
-    
-    return "Book is not found" unless result
-    
+
+    return 'Book is not found' unless result
+
     if result.has_key?(:status)
       current_status = result[:status]
-   else
-      return "Status is not set for this book"
-   end
-   
-   current_status == "Active" ? result[:status] = "Not active" : result[:status] = "Active"
-    
+    else
+      return 'Status is not set for this book'
+    end
+
+    current_status == 'Active' ? result[:status] = 'Not active' : result[:status] = 'Active'
   end
-  
 end
 
+l = Library.new
 
+p l.books
 
+l.add_book(name: 'Долорес Клейборн', author: 'Стівен Кінг', strong: 'Владисдав Батькович', status: 'Active')
+
+p l.books
+
+p l.find_book(:name, '1984')
