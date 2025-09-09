@@ -22,12 +22,11 @@ class Library
     allowed_keys = %i[status year author name]
 
     if args.has_key?(:name) && args.has_key?(:author)
-      m = @books.keys.max.to_i + 1
-      @books[m] = { id: m } # auto increment id for a new book
+      @books[@books.keys.max.to_i + 1 ] = { id: @books.keys.max.to_i + 1 } # auto increment id for a new book
 
       args.each do |key, value|
         if allowed_keys.include?(key)
-          @books[m].merge!({ key => value })
+          @books[@books.keys.max.to_i][key] = value
         end
       end
     else
@@ -41,7 +40,7 @@ class Library
   end
 
   def change_status(parametr, value)
-    result = @books.values.find { |book| book[parametr] == value }
+    result = find_book(parametr, value)
 
     return 'Book is not found' unless result
 
