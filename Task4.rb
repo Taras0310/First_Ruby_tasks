@@ -7,4 +7,4 @@ If no argument is passed - print message 'Please pass argument to the script' - 
 =end
 
 first_arg = ARGV[0]
-first_arg.nil? ? (puts "Please pass argument to the script") : (puts `#{first_arg}`)
+puts ARGV[0].nil? ? "Please pass argument to the script" : `#{first_arg}`

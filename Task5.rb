@@ -11,56 +11,25 @@ All statistics should be printed on class instance creation - FileAnalyzer.new('
 class FileAnalyzer
   def initialize(path)
     @path = path
-    lines_count = count_lines
-    empty_count = count_empty_lines
-    y_count = count_lines_with_y
-
-    puts "Lines: #{lines_count}"
-    puts "Empty lines: #{empty_count}"
-    puts "Lines with 'y': #{y_count}"
+    @lines_arr = File.readlines(path, chomp: true)
+  
+    puts "Lines: #{count_lines}"
+    puts "Empty lines: #{count_empty_lines}"
+    puts "Lines with 'y': #{count_lines_with_y}"
   end
 
   private
-  
-  def work_with_file
-    
-   File.open(@path, "r") do |file|
-      yield(file)
-    end
-  end
-
 
   def count_lines
-    count_lines = 0
-    
-    work_with_file do |file|
-      file.each_line {count_lines +=1}
-    end
-    
-    count_lines
+    @lines_arr.size
   end
 
   def count_empty_lines
-    count_empty = 0
-    
-    work_with_file do |file|
-      file.each_line {|line| count_empty +=1 if line.strip.empty?}
-    end
-    
-    count_empty
+    @lines_arr.count { |line| line.strip.empty? }
   end
     
   def count_lines_with_y
-    y_count = 0
-    
-    work_with_file do |file|
-      file.each_line do |line|
-        line = line.downcase
-        line.each_char {|el| y_count +=1 if el == 'y'}
-      end
-    end
-    
-    y_count
+  @lines_arr.count { |line| line.downcase.include?("y") }
   end
 end
 

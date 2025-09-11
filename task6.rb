@@ -23,6 +23,7 @@ Consider in what types of variables should information be kept
 
 class Worker #general class, describes Worker
   attr_reader :name, :surname, :experience, :specialization
+  FIXED_SALARY_PER_YEAR = 2000 
 
   def initialize(name, surname, experience, specialization)
     @name = name
@@ -30,20 +31,21 @@ class Worker #general class, describes Worker
     @experience = experience
     @specialization = specialization
   end
-end
-
-class WorkerAccountant < Worker
-  FIXED_SALARY_PER_YEAR = 2000  
-
+  
   def salary
     result = self.class::FIXED_SALARY_PER_YEAR * @experience
     
     result
   end
+  
+end
+
+class WorkerAccountant < Worker
+  FIXED_SALARY_PER_YEAR = 2000  
 end
 
 
-class WorkerLawer < WorkerAccountant
+class WorkerLawer < Worker
   FIXED_SALARY_PER_YEAR = 3000
 end
 
@@ -53,12 +55,9 @@ class Business
   attr_reader :name, :workers
   
   
-  def initialize(name)
+  def initialize(name, workers)
     @name = name
-    @workers = [
-    WorkerAccountant.new('Taras', 'Yakushevych', 3, 'Main_accountant'),
-    WorkerLawer.new('Yevhen', 'Gitt', 3, 'Main_lawer')
-  ]
+    @workers = workers
   end
   
   def count_workers #display current count of workers
@@ -84,7 +83,10 @@ class Business
   end
 end
 
-b = Business.new('IT')
+b = Business.new('IT', [
+    WorkerAccountant.new('Taras', 'Yakushevych', 3, 'Main_accountant'),
+    WorkerLawer.new('Yevhen', 'Gitt', 6, 'Main_lawer')
+  ])
 
 b.print_workers_info
 b.business_name
