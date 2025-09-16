@@ -5,7 +5,7 @@ Create method in class which would use string interpolation(this can be simple p
 =end
 
 
-$global = "Human" #global variable
+$global = 'Human' #global variable
 
 
 class Person
@@ -25,20 +25,15 @@ class Person
     @@count_instances
   end
   
-  def set_fulname
-    fulname = "#{@surname} #{@name} #{@patronymic}"
-    
-    fulname
+   def set_full_name
+    "#{@surname} #{@name} #{@patronymic}"
   end
   
   def general_info # in this method all types of variables are used 
-    full = set_fulname #full is the local variable which used only in this method
-    puts " Hi, I'm a #{$global}.\n My fulname is #{full}.\n My age is #{age}.\n All information about me is described in the #{self.class} class.\n There curently #{Person.count_instances} instances of the class.\n"
+    full = set_full_name #full is the local variable which used only in this method
+    puts " Hi, I'm a #{$global}.\n My fullname is #{full}.\n My age is #{age}.\n All information about me is described in the #{self.class} class.\n There currently #{Person.count_instances} instances of the class.\n"
   end
 end
 
-i = Person.new("Tарас", 25, "Якушевич", "Олексійович")
-
-
-
+i = Person.new('Tарас', 25, 'Якушевич', 'Олексійович')
 i.general_info
