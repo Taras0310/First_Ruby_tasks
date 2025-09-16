@@ -35,3 +35,4 @@ end
 
 f = FileAnalyzer.new('test.txt')
 
+

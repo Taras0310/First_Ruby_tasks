@@ -33,9 +33,7 @@ class Worker #general class, describes Worker
   end
   
   def salary
-    result = self.class::FIXED_SALARY_PER_YEAR * @experience
-    
-    result
+    self.class::FIXED_SALARY_PER_YEAR * @experience
   end
   
 end
@@ -91,5 +89,6 @@ b = Business.new('IT', [
 b.print_workers_info
 b.business_name
 b.count_workers
+
 
 
