@@ -14,7 +14,7 @@ class Library
   def initialize
     @books = {
       1 => { id: 1, author: 'Стівен Кінг', name: 'Воно', status: 'Active', year: 2020 },
-      2 => { id: 2, author: 'Джордж Орвел', name: '1984' }
+      2 => { id: 2, author: 'Джордж Орвелл', name: '1984'}
     }
   end
 
@@ -35,7 +35,9 @@ class Library
   end
 
   def find_book(parametr, value)
-    result = @books.values.find { |book| book[parametr] == value }
+     result = @books.values.select do |book|
+       book[parametr].downcase.include?(value.downcase)
+    end
     result || 'Book is not found'
   end
 
@@ -43,14 +45,13 @@ class Library
     result = find_book(parametr, value)
 
     return 'Book is not found' unless result
-
-    if result.has_key?(:status)
-      current_status = result[:status]
-    else
-      return 'Status is not set for this book'
+    
+    result.each do |elem|
+      if elem.has_key?(:status)
+        current_status = elem[:status]
+        current_status == 'Active' ? elem[:status] = 'Not active' : elem[:status] = 'Active'
+      end
     end
-
-    current_status == 'Active' ? result[:status] = 'Not active' : result[:status] = 'Active'
   end
 end
 
@@ -58,8 +59,12 @@ l = Library.new
 
 p l.books
 
-l.add_book(name: 'Долорес Клейборн', author: 'Стівен Кінг', strong: 'Владисдав Батькович', status: 'Active')
+l.add_book(name: 'Долорес Клейборн', author: 'Стівен Кінг', status: 'Active')
+l.add_book(name: 'Роза Меддер', author: 'Стівен Кінг')
 
 p l.books
 
-p l.find_book(:name, '1984')
+p l.find_book(:author, 'інг')
+
+p l.books
+

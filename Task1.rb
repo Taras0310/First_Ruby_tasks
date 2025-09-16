@@ -36,7 +36,4 @@ class Person
 end
 
 i = Person.new('Tарас', 25, 'Якушевич', 'Олексійович')
-
-
-
 i.general_info
