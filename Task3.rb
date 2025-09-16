@@ -14,7 +14,7 @@ class Library
   def initialize
     @books = {
       1 => { id: 1, author: 'Стівен Кінг', name: 'Воно', status: 'Active', year: 2020 },
-      2 => { id: 2, author: 'Джордж Орвел', name: '1984' }
+      2 => { id: 2, author: 'Джордж Орвелл', name: '1984'}
     }
   end
 
@@ -22,12 +22,11 @@ class Library
     allowed_keys = %i[status year author name]
 
     if args.has_key?(:name) && args.has_key?(:author)
-      m = @books.keys.max.to_i + 1
-      @books[m] = { id: m } # auto increment id for a new book
+      @books[@books.keys.max.to_i + 1 ] = { id: @books.keys.max.to_i + 1 } # auto increment id for a new book
 
       args.each do |key, value|
         if allowed_keys.include?(key)
-          @books[m].merge!({ key => value })
+          @books[@books.keys.max.to_i][key] = value
         end
       end
     else
@@ -36,21 +35,36 @@ class Library
   end
 
   def find_book(parametr, value)
-    result = @books.values.find { |book| book[parametr] == value }
+     result = @books.values.select do |book|
+       book[parametr].downcase.include?(value.downcase)
+    end
     result || 'Book is not found'
   end
 
   def change_status(parametr, value)
-    result = @books.values.find { |book| book[parametr] == value }
+    result = find_book(parametr, value)
 
     return 'Book is not found' unless result
-
-    if result.has_key?(:status)
-      current_status = result[:status]
-    else
-      return 'Status is not set for this book'
+    
+    result.each do |elem|
+      if elem.has_key?(:status)
+        current_status = elem[:status]
+        current_status == 'Active' ? elem[:status] = 'Not active' : elem[:status] = 'Active'
+      end
     end
-
-    current_status == 'Active' ? result[:status] = 'Not active' : result[:status] = 'Active'
   end
 end
+
+l = Library.new
+
+p l.books
+
+l.add_book(name: 'Долорес Клейборн', author: 'Стівен Кінг', status: 'Active')
+l.add_book(name: 'Роза Меддер', author: 'Стівен Кінг')
+
+p l.books
+
+p l.find_book(:author, 'інг')
+
+p l.books
+
