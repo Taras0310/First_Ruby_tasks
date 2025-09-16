@@ -15,6 +15,7 @@ class Vehicle
   attr_accessor :owner
   attr_reader :year, :model
   @@count_wheels = 4
+  
   def initialize(year, model, owner = nil)
     @year = year
     @model = model

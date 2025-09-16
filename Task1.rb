@@ -9,7 +9,6 @@ $global = 'Human' #global variable
 
 
 class Person
-  
   attr_accessor :name, :age, :surname, :patronymic
   @@count_instances = 0 #class variable
   
